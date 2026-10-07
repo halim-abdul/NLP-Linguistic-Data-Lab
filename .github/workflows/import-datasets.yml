@@ -1,0 +1,48 @@
+name: Import datasets
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/import-datasets.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download datasets
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p data
+          base="https://raw.githubusercontent.com/andruhus/DL_NLP2026_Semantic_Seekers/main/data"
+          files=(
+            etpc-paraphrase-detection-test-student.csv
+            etpc-paraphrase-generation-test-student.csv
+            etpc-paraphrase-train.csv
+            quora-paraphrase-dev.csv
+            quora-paraphrase-test-student.csv
+            quora-paraphrase-train.csv
+            sst-sentiment-dev.csv
+            sst-sentiment-test-student.csv
+            sst-sentiment-train.csv
+            sts-similarity-dev.csv
+            sts-similarity-test-student.csv
+            sts-similarity-train.csv
+          )
+          for f in "${files[@]}"; do
+            curl -L --fail --retry 3 "$base/$f" -o "data/$f"
+          done
+      - name: Commit datasets
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "Halim"
+          git config user.email "halim-abdul@users.noreply.github.com"
+          git add data
+          git rm .github/workflows/import-datasets.yml
+          git commit -m "Add NLP datasets"
+          git push
