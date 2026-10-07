@@ -1,0 +1,31 @@
+name: Import QQP datasets
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  import-qqp:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download QQP datasets
+        run: |
+          mkdir -p data
+          curl -L --fail -o data/quora-paraphrase-train.csv https://raw.githubusercontent.com/andruhus/DL_NLP2026_Semantic_Seekers/main/data/quora-paraphrase-train.csv
+          curl -L --fail -o data/quora-paraphrase-dev.csv https://raw.githubusercontent.com/andruhus/DL_NLP2026_Semantic_Seekers/main/data/quora-paraphrase-dev.csv
+          curl -L --fail -o data/quora-paraphrase-test-student.csv https://raw.githubusercontent.com/andruhus/DL_NLP2026_Semantic_Seekers/main/data/quora-paraphrase-test-student.csv
+      - name: Verify expected byte sizes
+        run: |
+          test "$(wc -c < data/quora-paraphrase-train.csv)" -eq 21923808
+          test "$(wc -c < data/quora-paraphrase-dev.csv)" -eq 5442254
+          test "$(wc -c < data/quora-paraphrase-test-student.csv)" -eq 5391103
+      - name: Commit datasets
+        run: |
+          git config user.name "Halim"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/quora-paraphrase-*.csv
+          git diff --cached --quiet && exit 0
+          git commit -m "Add QQP datasets"
+          git push
