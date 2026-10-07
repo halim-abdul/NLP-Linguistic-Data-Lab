@@ -4,14 +4,14 @@
 - **Group code:** `g10`
 - **Group repository:** https://github.com/halim-math/Linguistic-Data-Lab
 - **Tutor responsible:** Hamza Ahmed Siddiqui
-- **Group team leader:** Shibli (``, GitHub: [Shibli2316](https://github.com/Shibli2316))
+- **Group team leader:** Shibli 
 - **Group members:**
-  * **Shibli** (``, GitHub: [Shibli2316](https://github.com/Shibli2316))
-  * **Nallani** (``, GitHub: [sunilnallani116](https://github.com/sunilnallani116))
-  * **Halim** (``, GitHub: [halim-math](https://github.com/halim-math))
+  * **Shibli** 
+  * **Nallani** 
+  * **Halim** 
 
 
-> Note: **Amjad** (GitHub: [Abdullah-Amjad](https://github.com/Abdullah-Amjad)) contributed the Part 1 Paraphrase Generation (PTG) baseline but is no longer a member of the group.
+> Note: **Amjad** contributed the Part 1 Paraphrase Generation (PTG) baseline but is no longer a member of the group.
 
 ---
 
